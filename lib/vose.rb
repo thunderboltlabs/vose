@@ -52,7 +52,7 @@ module Vose
 
         scaled_probality[current_large_worklist_index] = (scaled_probality[current_large_worklist_index] + scaled_probality[current_small_worklist_index]) - 1
         if scaled_probality[current_large_worklist_index] > 1
-          large_worklist[large_worklist_counter] = k
+          large_worklist[large_worklist_counter] = large_worklist_counter
           large_worklist_counter+=1
         else
           small_worklist[small_worklist_counter] = current_large_worklist_index

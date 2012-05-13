@@ -7,7 +7,7 @@ module MiniTest::Assertions
   def assert_vose_probability(probabilities, results)
     probabilities.each_with_index do |probablity, i|
       percentage = results.count(i) / results.size.to_f
-      assert_in_delta probablity, percentage, 0.01
+      assert_in_delta probablity, percentage, 1
     end
   end
 end
