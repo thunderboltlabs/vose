@@ -1,13 +1,13 @@
 # Vose: Sample random values from a discrete probability distribution.
 
 Vose is a Ruby implementation of the Vose Alias Method. It allows for
-sampling of random values from a discrite probability distribution or in
-others rolling a loaded die. This implementation is runs in O(1) time after
-after a O(n) initialization.
+sampling of random values from a discrete probability distribution or in
+others rolling a loaded die. This implementation runs in O(1) time after
+after an O(n) initialization.
 
 For more information on the theory, have a look at [Darts, Dice, and Coins: Sampling from a Discrete Distribution](http://www.keithschwarz.com/darts-dice-coins/)
 
-## Installation
+## Installatione
 
 To track the latest officially released gem:
 
