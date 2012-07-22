@@ -30,7 +30,7 @@ describe Vose::AliasMethod do
       vose = Vose::AliasMethod.new probabilities
       results = []
       100000.times { results << vose.next }
-      
+       
       sum = probabilities.reduce(:+) 
       expected_percentages = probabilities.map{|p| p/sum}
       results.must_match_probability expected_percentages
@@ -42,6 +42,12 @@ describe Vose::AliasMethod do
       results = []
       100000.times { results << vose.next }
       results.must_match_probability probabilities
+    end
+
+    it "accounts for zero values" do
+      probabilities = [0, 0, 0, 3]
+      vose = Vose::AliasMethod.new probabilities
+      vose.next.must_equal 3
     end
   end
 end
