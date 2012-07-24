@@ -8,14 +8,14 @@ describe Vose::AliasMethod do
     }.must_raise(Vose::InvalidArgumentException)
   end
 
-  it "complinas if the probabilities aren't positive" do
+  it "complains if the probabilities aren't positive" do
     probabilities = [-0.5]
     lambda { 
       Vose::AliasMethod.new probabilities
     }.must_raise(Vose::InvalidArgumentException)
   end  
 
-  it "sets the limit to the lenght of probabilities" do
+  it "sets the limit to the length of probabilities" do
     probabilities = [0.1, 0.9]
     vose = Vose::AliasMethod.new probabilities
     vose.limit.must_equal 2
@@ -36,7 +36,7 @@ describe Vose::AliasMethod do
       results.must_match_probability expected_percentages
     end
 
-    it "allows you choose the next probablity given your inputs" do
+    it "allows you choose the next probability given your inputs" do
       probabilities = [0.1, 0.5, 0.4]
       vose = Vose::AliasMethod.new probabilities
       results = []

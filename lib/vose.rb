@@ -4,7 +4,7 @@ module Vose
   class InvalidArgumentException < RuntimeError; end;
 
   class AliasMethod
-    attr_reader :limit, :prob
+    attr_reader :limit
 
     def initialize(probabilities)
       raise InvalidArgumentException if probabilities.empty?
@@ -33,24 +33,27 @@ module Vose
 
       0.upto(limit-1) do |j|
         if scaled_probality[j] > 1
-          large_worklist[large_worklist_counter+=1] = j
+          large_worklist[large_worklist_counter] = j
+          large_worklist_counter+=1
         else
-          small_worklist[small_worklist_counter+=1] = j
+          small_worklist[small_worklist_counter] = j
+          small_worklist_counter+=1
         end
       end
 
       while small_worklist_counter != 0 && large_worklist_counter != 0
-        current_small_worklist_index = small_worklist[small_worklist_counter].to_i
-        current_large_worklist_index = large_worklist[large_worklist_counter].to_i
         small_worklist_counter-=1
         large_worklist_counter-=1
+
+        current_small_worklist_index = small_worklist[small_worklist_counter].to_i
+        current_large_worklist_index = large_worklist[large_worklist_counter].to_i
 
         @prob[current_small_worklist_index] = scaled_probality[current_small_worklist_index]
         @alias[current_small_worklist_index] = current_large_worklist_index
 
         scaled_probality[current_large_worklist_index] = (scaled_probality[current_large_worklist_index] + scaled_probality[current_small_worklist_index]) - 1
         if scaled_probality[current_large_worklist_index] > 1
-          large_worklist[large_worklist_counter] = large_worklist_counter
+          large_worklist[large_worklist_counter] = current_large_worklist_index
           large_worklist_counter+=1
         else
           small_worklist[small_worklist_counter] = current_large_worklist_index
