@@ -13,7 +13,7 @@ module Vose
       @limit = probabilities.length
       sum = probabilities.reduce(:+)
 
-      scale = limit / sum.to_f
+      scale = @limit / sum.to_f
       scaled_probality = []
       probabilities.each do |p|
         scaled_probality << (p * scale)
@@ -26,17 +26,17 @@ module Vose
     end
 
     def preprocess(scaled_probality)
-      small_worklist         = []
-      large_worklist         = []
+      small_worklist         = Array.new(limit) { 0 }
+      large_worklist         = Array.new(limit) { 0 }
       small_worklist_counter = 0
       large_worklist_counter = 0
 
-      scaled_probality.each_with_index do |p,i|
-        if p > 1
-          large_worklist[large_worklist_counter] = i
+      0.upto(limit-1) do |j|
+        if scaled_probality[j] > 1
+          large_worklist[large_worklist_counter] = j
           large_worklist_counter+=1
         else
-          small_worklist[small_worklist_counter] = i
+          small_worklist[small_worklist_counter] = j
           small_worklist_counter+=1
         end
       end
@@ -44,6 +44,7 @@ module Vose
       while small_worklist_counter != 0 && large_worklist_counter != 0
         small_worklist_counter-=1
         large_worklist_counter-=1
+
         current_small_worklist_index = small_worklist[small_worklist_counter].to_i
         current_large_worklist_index = large_worklist[large_worklist_counter].to_i
 
@@ -52,7 +53,7 @@ module Vose
 
         scaled_probality[current_large_worklist_index] = (scaled_probality[current_large_worklist_index] + scaled_probality[current_small_worklist_index]) - 1
         if scaled_probality[current_large_worklist_index] > 1
-          large_worklist[large_worklist_counter] = large_worklist_counter
+          large_worklist[large_worklist_counter] = current_large_worklist_index
           large_worklist_counter+=1
         else
           small_worklist[small_worklist_counter] = current_large_worklist_index

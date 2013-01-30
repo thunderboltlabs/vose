@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency("ruby_gntp")
   gem.add_development_dependency("guard-minitest")
   gem.add_development_dependency("guard-bundler")
+  gem.add_development_dependency("rinruby")
 
   gem.signing_key = File.join(File.dirname(__FILE__), 'gem-private_key.pem')
   gem.cert_chain  = [File.join(File.dirname(__FILE__), 'gem-public_cert.pem')]
